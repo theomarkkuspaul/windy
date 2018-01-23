@@ -16,10 +16,22 @@ module DynamoDB
     # set params for table scan
     params = {
       table_name: 'enviro_0001',
-      select: 'ALL_ATTRIBUTES'
+      select: 'ALL_ATTRIBUTES',
+      limit: 1000
     }
 
     # perform table scan
-    dynamodb_client.scan(params)
+    resp = dynamodb_client.scan(params)
+
+    sorted_items = resp.items.sort_by do |a|
+      a["Timestamp"]
+    end
+
+    sorted_items.map do |item|
+      [
+        item["Timestamp"],
+        item["WindSpeed"].to_i
+      ]
+    end
  end
 end
