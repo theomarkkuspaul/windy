@@ -2,9 +2,8 @@
 module DynamoDB
  def self.call
     # Retrieve creds
-    creds = CSV.read(APP_ROOT + 'aws-credentials.csv')[1]
-    access_key = creds[0]
-    secret_key = creds[1]
+    access_key = ENV['WINDY_ACCESS_KEY']
+    secret_key = ENV['WINDY_SECRET_KEY']
 
     # create dynamodb client
     dynamodb_client = Aws::DynamoDB::Client.new(
