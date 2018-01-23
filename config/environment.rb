@@ -16,6 +16,9 @@ require 'csv'
 # Debugger
 require 'pry'
 
+# AWS
+require 'aws-sdk'
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
@@ -24,7 +27,8 @@ require 'erb'
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
-APP_NAME = APP_ROOT.basename.to_s
+# APP_NAME = APP_ROOT.basename.to_s
+APP_NAME = [APP_ROOT.basename.to_s, 'app', 'app.rb'].join('/')
 
 configure do
   # By default, Sinatra assumes that the root is the file that calls the configure block.
@@ -39,4 +43,10 @@ configure do
 end
 
 # Set up the controllers
-Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
+# Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
+
+# Load main application file
+require [APP_ROOT, 'app', 'app.rb'].join('/')
+
+# Load Service Objects
+Dir[APP_ROOT.join('app', 'services', '*.rb')].each { |file| require file }
