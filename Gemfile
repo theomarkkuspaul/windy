@@ -8,6 +8,9 @@ gem 'rake'
 
 gem 'shotgun'
 
+# pry for debugging
+gem 'pry'
+
 # AWS
 gem 'aws-sdk', '~> 3'
 

@@ -11,6 +11,11 @@ require 'rubygems'
 require 'uri'
 require 'pathname'
 
+require 'csv'
+
+# Debugger
+require 'pry'
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 
