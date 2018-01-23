@@ -11,6 +11,7 @@ require 'rubygems'
 require 'uri'
 require 'pathname'
 
+require 'json'
 require 'csv'
 
 # Debugger
