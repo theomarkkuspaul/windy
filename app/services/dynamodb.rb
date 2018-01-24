@@ -29,6 +29,12 @@ class DynamoDB
       a["Timestamp"]
     end
 
+    # convert timestamps to epoch time
+    sorted_items.map! do |item|
+      item["Timestamp"] = Time.parse(item["Timestamp"]).to_i
+      item
+    end
+
     sorted_items.map do |item|
       [
         item["Timestamp"],
