@@ -1,15 +1,18 @@
 
-module DynamoDB
- def self.call
-    # Retrieve creds
-    access_key = ENV['WINDY_ACCESS_KEY']
-    secret_key = ENV['WINDY_SECRET_KEY']
+class DynamoDB
+
+  def initialize()
+    @access_key = ENV['WINDY_ACCESS_KEY']
+    @secret_key = ENV['WINDY_SECRET_KEY']
+  end
+
+  def call
 
     # create dynamodb client
     dynamodb_client = Aws::DynamoDB::Client.new(
       region: 'ap-southeast-2', # Syd-ers!
-      access_key_id: access_key,
-      secret_access_key: secret_key
+      access_key_id: @access_key,
+      secret_access_key: @secret_key
     )
 
     # set params for table scan
@@ -32,5 +35,5 @@ module DynamoDB
         item["WindSpeed"].to_i
       ]
     end
- end
+  end
 end
