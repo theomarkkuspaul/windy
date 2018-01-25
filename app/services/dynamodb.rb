@@ -50,7 +50,7 @@ class DynamoDB
     # add data to payload container
     @payload.push(resp.items)
 
-    return @payload if @scan_count >= 3
+    return @payload if @scan_count >= 1
 
     if resp.last_evaluated_key
       params["last_evaluated_key"] = last_evaluated_key
