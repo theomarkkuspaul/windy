@@ -31,11 +31,11 @@ class DynamoDB
 
     # convert timestamps to epoch time
     sorted_items.map! do |item|
-      item["Timestamp"] = Time.parse(item["Timestamp"]).to_i
+      item["Timestamp"] = Time.parse(item["Timestamp"]).to_i * 1000 # convert to milliseconds
       item
     end
 
-    sorted_items.map do |item|
+    sorted_items.map! do |item|
       [
         item["Timestamp"],
         item["WindSpeed"].to_i
