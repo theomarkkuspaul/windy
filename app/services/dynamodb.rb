@@ -24,8 +24,6 @@ class DynamoDB
       item
     end
 
-    binding.pry
-
     sorted_items.map! do |item|
       [
         item["Timestamp"],
