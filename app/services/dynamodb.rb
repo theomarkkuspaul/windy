@@ -12,7 +12,7 @@ class DynamoDB
   def call
 
     scan
-    puts "Payload length total: #{@payload.length}"
+
     sorted_items = @payload.sort_by do |a|
       a["Timestamp"]
     end
@@ -26,7 +26,7 @@ class DynamoDB
     sorted_items.map! do |item|
       [
         item["Timestamp"],
-        item["WindSpeed"].to_i
+        item["WindSpeed"].to_f
       ]
     end
   end
