@@ -6,14 +6,13 @@ class DynamoDB
     @secret_key = ENV['WINDY_SECRET_KEY']
     @payload = []
     @scan_count = 0
+    @scan_count_maximum = 2
   end
 
   def call
 
     scan
-
-    @payload.flatten!
-
+    puts "Payload length total: #{@payload.length}"
     sorted_items = @payload.sort_by do |a|
       a["Timestamp"]
     end
@@ -43,14 +42,15 @@ class DynamoDB
 
     puts "Scan count: #{@scan_count}"
     puts "Scanning"
+
     # perform table scan
     resp = client.scan(params)
     @scan_count += 1
 
     # add data to payload container
-    @payload.push(resp.items)
+    @payload.push(resp.items).flatten!
 
-    return @payload if @scan_count >= 1
+    return @payload if @scan_count >= @scan_count_maximum
 
     if resp.last_evaluated_key
       params["last_evaluated_key"] = last_evaluated_key
